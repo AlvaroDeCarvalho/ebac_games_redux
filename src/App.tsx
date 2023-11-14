@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Header from './components/Header'
 import Produtos from './containers/Produtos'
 
 import { GlobalStyle } from './styles'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 export type Game = {
   id: number
@@ -16,30 +18,24 @@ export type Game = {
 
 function App() {
   const [games, setGames] = useState<Game[]>([])
-  const [carrinho, setCarrinho] = useState<Game[]>([])
 
-  useEffect(() => {
-    fetch('http://localhost:4000/produtos')
-      .then((res) => res.json())
-      .then((res) => setGames(res))
-  }, [])
-
-  function adicionarAoCarrinho(jogo: Game) {
-    if (carrinho.find((game) => game.id === jogo.id)) {
-      alert('Item já adicionado')
-    } else {
-      setCarrinho([...carrinho, jogo])
-    }
-  }
+  /*
+    As imagens do nosso ENDPOINT vem do arquivo db.json, para vincular
+    este arquivo com o nosso DATABASE ficticio utilizamos a biblioteca json-server
+    comando : npx json-server db.json --port 4000 --delay 1000
+*/
 
   return (
-    <>
+    /*
+    para temos acesso ao store, utilizamos o Provider, e passamos como argumento o store
+    */
+    <Provider store={store}>
       <GlobalStyle />
       <div className="container">
-        <Header itensNoCarrinho={carrinho} />
-        <Produtos jogos={games} adicionarAoCarrinho={adicionarAoCarrinho} />
+        <Header />
+        <Produtos />
       </div>
-    </>
+    </Provider>
   )
 }
 
