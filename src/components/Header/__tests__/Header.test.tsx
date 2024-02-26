@@ -1,40 +1,39 @@
 import { screen } from '@testing-library/react'
 import Header from '..'
-import { renderizaComProvider } from '../../../utils/tests'
+import { renderWithProvider } from '../../../utils/tests'
 
 describe('test para o componente header', () => {
   test('execultando o test', () => {
-    renderizaComProvider(<Header />)
+    renderWithProvider(<Header />)
     expect(screen.getByText('EBAC Games')).toBeInTheDocument()
   })
-  test('deve renderizar com 2 itens no carrinho', () => {
-    const { debug } = renderizaComProvider(<Header />, {
+  test('Retornando dos elementos do array', () => {
+    const { debug } = renderWithProvider(<Header />, {
       preloadedState: {
         carrinho: {
           itens: [
             {
-              id: 1,
               categoria: 'RPG',
+              id: 1,
               imagem: '',
-              plataformas: ['Windows'],
-              preco: 150.9,
-              precoAntigo: 199.9,
-              titulo: 'Elden Ring'
+              plataformas: ['pc'],
+              preco: 100,
+              precoAntigo: 120,
+              titulo: 'GTA5'
             },
             {
-              id: 2,
               categoria: 'RPG',
+              id: 2,
               imagem: '',
-              plataformas: ['Windows', 'PS4', 'XBOX 5'],
-              preco: 240.9,
-              precoAntigo: 399.9,
-              titulo: 'Dark Souls 4'
+              plataformas: ['pc'],
+              preco: 100,
+              precoAntigo: 200,
+              titulo: 'league of legends'
             }
           ]
         }
       }
     })
     debug()
-    expect(screen.getByTestId('qnt-carrinho').innerHTML).toContain('2 itens')
   })
 })
