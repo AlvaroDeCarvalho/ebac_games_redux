@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import * as S from './styles'
 
 import cesta from '../../assets/cesta.png'
+
 import { paraReal } from '../Produto'
 
 import { RootState } from '../../store'

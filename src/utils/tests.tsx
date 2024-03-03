@@ -24,6 +24,7 @@ export function renderWithProvider(
     return <Provider store={store}>{children}</Provider>
   }
   return {
+    store,
     ...render(elemento, {
       wrapper: Encapsulador,
       ...outrasConfigs
